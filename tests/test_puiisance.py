@@ -99,7 +99,15 @@ def test_place_four_aligned_reds_vertical():
     # assert(False)
     assert(game.place_mark(1,'R') == True)
 
-def test_place_four_aligned_red_diagonal():
+def test_place_four_unaligned_reds_vertical():
+    game = ps.Game()
+    game.place_mark(0,'R')
+    game.place_mark(1,'Y')
+    game.place_mark(1,'R')
+    game.place_mark(1,'R')
+    assert(game.place_mark(1,'R') == False)
+
+def test_place_four_aligned_red_first_diagonal():
     game = ps.Game()
     game.place_mark(0,'R')
     game.place_mark(1,'Y')
@@ -113,4 +121,37 @@ def test_place_four_aligned_red_diagonal():
     # print(game)
     assert(game.place_mark(3,'R') == True)
 
+def test_place_four_unaligned_red_first_diagonal():
+    game = ps.Game()
+    game.place_mark(0,'R')
+    game.place_mark(1,'Y')
+    game.place_mark(1,'R')
+    game.place_mark(2,'Y')
+    game.place_mark(2,'Y')
+    game.place_mark(3,'R')
+    game.place_mark(3,'Y')
+    game.place_mark(3,'R')
+    game.place_mark(3,'Y')
+    game.place_mark(4,'R')
+    game.place_mark(4,'Y')
+    game.place_mark(4,'R')
+    game.place_mark(4,'Y')
+    game.place_mark(4,'R')
+    x = game.place_mark(2,'R')
+    # print(game)
+    assert(x == False)
 
+def test_place_four_aligned_red_second_diagonal():
+    game = ps.Game()
+    game.place_mark(3,'R')
+    game.place_mark(2,'Y')
+    game.place_mark(2,'R')
+    game.place_mark(1,'Y')
+    game.place_mark(1,'Y')
+    game.place_mark(1,'R')
+    game.place_mark(0,'R')
+    game.place_mark(0,'Y')
+    game.place_mark(0,'R')
+    x = game.place_mark(0,'R')
+    print(game)
+    assert( x == True)
