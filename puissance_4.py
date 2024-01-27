@@ -64,11 +64,15 @@ class Game():
 
     def check_diagonal_second(self,mark,row,col):
         count = 0
-        for i in range(1,4):
-            if (col-i > -1 and row-i > -1 and self.grid[row-i][col-i] == mark):
+        i = 1
+        while col-i > -1 and row-i > -1 and self.grid[row-i][col-i] == mark:
                 count += 1
-            if (col+i < 7 and row+i < 6 and self.grid[row+i][col+i] == mark):
+                i += 1
+        i = 1
+        while col+i < 7 and row+i < 6 and self.grid[row+i][col+i] == mark:
                 count += 1
+                i += 1
+
         if count == 3:
             return True
         else:
