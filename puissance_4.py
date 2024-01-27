@@ -16,7 +16,7 @@ class Game():
         return self.is_winner(mark,r,col)
 
     def is_winner(self,mark,row,col):
-        return self.check_vertical(mark,row,col) or self.check_horizontal(mark,row,col) or self.check_diagonal(mark,row,col)
+        return self.check_vertical(mark,row,col) or self.check_horizontal(mark,row,col) or self.check_diagonal_first(mark,row,col) or self.check_diagonal_second(mark,row,col)
 
     def check_vertical(self,mark,row,col):
         count = 0
@@ -46,12 +46,28 @@ class Game():
         else:
             return False
 
-    def check_diagonal(self,mark,row,col):
+    def check_diagonal_first(self,mark,row,col):
+        count = 0
+        i = 1
+        while col-i > -1 and row+i < 6 and self.grid[row+i][col-i] == mark:
+            count += 1
+            i += 1
+        i = 1
+        while col+i < 7 and row-i > -1 and self.grid[row-i][col+i] == mark:
+            count += 1
+            i += 1
+
+        if count == 3:
+            return True
+        else:
+            return False
+
+    def check_diagonal_second(self,mark,row,col):
         count = 0
         for i in range(1,4):
-            if (col-i > -1 and row+i < 6 and self.grid[row+i][col-i] == mark):
+            if (col-i > -1 and row-i > -1 and self.grid[row-i][col-i] == mark):
                 count += 1
-            if (col+i < 7 and row-i > -1 and self.grid[row-i][col+i] == mark):
+            if (col+i < 7 and row+i < 6 and self.grid[row+i][col+i] == mark):
                 count += 1
         if count == 3:
             return True
