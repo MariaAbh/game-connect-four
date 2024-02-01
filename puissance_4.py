@@ -22,17 +22,17 @@ class Game():
         count = 0
         r_index = r
         c_index = c
-        while row-r_index > -1 and col-c_index > -1 and self.grid[row-r_index][col-c_index] == mark:
+        while row-r_index > -1 and col-c_index > -1 and row-r_index < 6 and self.grid[row-r_index][col-c_index] == mark:
             count += 1
-            r_index += (1 if r_index != 0 else 0)
-            c_index += (1 if c_index != 0 else 0)
+            r_index += (1 if r_index > 0 else -1 if r_index < 0 else 0)
+            c_index += (1 if c_index > 0 else -1 if c_index < 0 else 0)
 
         r_index = r
         c_index = c
-        while row+r_index < 6 and col+c_index < 7 and self.grid[row+r_index][col+c_index] == mark:
+        while row+r_index < 6 and col+c_index < 7 and row+r_index > -1 and self.grid[row+r_index][col+c_index] == mark:
             count += 1
-            r_index += (1 if r_index != 0 else 0)
-            c_index += (1 if c_index != 0 else 0)
+            r_index += (1 if r_index > 0 else -1 if r_index < 0 else 0)
+            c_index += (1 if c_index > 0 else -1 if c_index < 0 else 0)
         return count == 3
 
     def check_vertical(self,mark,row,col):
@@ -42,16 +42,7 @@ class Game():
         return self.check_alignement(mark,row,col,0,1)
 
     def check_diagonal_first(self,mark,row,col):
-        count = 0
-        i = 1
-        while col-i > -1 and row+i < 6 and self.grid[row+i][col-i] == mark:
-            count += 1
-            i += 1
-        i = 1
-        while col+i < 7 and row-i > -1 and self.grid[row-i][col+i] == mark:
-            count += 1
-            i += 1
-        return count == 3
+        return self.check_alignement(mark,row,col,-1,1)
 
     def check_diagonal_second(self,mark,row,col):
         return self.check_alignement(mark,row,col,1,1)
