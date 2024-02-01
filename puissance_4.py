@@ -2,16 +2,31 @@ class Game():
     def __init__(self):
         self.width = 7
         self.height = 6
-        self.grid = [[' ' for i in range(self.width)] for j in range(self.height)]
+        self.grid = [['.' for i in range(self.width)] for j in range(self.height)]
+        self.player_index = 0
+        self.players = ['R','Y']
+
+    @property
+    def player(self):
+        return self.players[self.player_index]
 
     def __str__(self):
         # grid_str = '\n'.join(''.join(row) for row in self.grid)
         grid_str = '\n'.join(map(''.join, self.grid))
         return grid_str
 
+    def game_run(self,col):
+        marked = self.place_mark(col,self.player)
+        if marked:
+            return False
+        print(self)
+        print()
+        self.player_index = -self.player_index + 1
+        return True
+
     def place_mark(self,col,mark):
         for r in range(len(self.grid)):
-            if self.grid[r][col] != ' ':
+            if self.grid[r][col] != '.':
                 self.grid[r-1][col] = mark
                 return self.is_winner(mark,r-1,col)
         self.grid[r][col] = mark
