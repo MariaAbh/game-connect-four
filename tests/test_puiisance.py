@@ -34,23 +34,23 @@ def test_place_one_yellow_one_red_vertical():
 
 def test_place_four_aligned_reds_vertical():
     game = ps.Game()
-    game.place_mark(1,'R')
-    game.place_mark(1,'R')
-    game.place_mark(1,'R')
+    assert(game.place_mark(1,'R') == False)
+    assert(game.place_mark(1,'R') == False)
+    assert(game.place_mark(1,'R') == False)
     assert(game.place_mark(1,'R') == True)
 
 def test_place_four_aligned_reds_horizontal():
     game = ps.Game()
-    game.place_mark(0,'R')
-    game.place_mark(1,'R')
-    game.place_mark(2,'R')
+    assert(game.place_mark(0,'R') == False)
+    assert(game.place_mark(1,'R') == False)
+    assert(game.place_mark(2,'R') == False)
     assert(game.place_mark(3,'R') == True)
 
 def test_place_three_aligned_reds_horizontal_and_one_red_last_inordered():
     game = ps.Game()
-    game.place_mark(0,'R')
-    game.place_mark(1,'R')
-    game.place_mark(6,'R')
+    assert(game.place_mark(0,'R') == False)
+    assert(game.place_mark(1,'R') == False)
+    assert(game.place_mark(6,'R') == False)
     assert(game.place_mark(2,'R') == False)
 
 def test_place_four_aligned_reds_horizontal_not_in_order():
