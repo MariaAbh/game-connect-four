@@ -18,33 +18,28 @@ class Game():
     def is_winner(self,mark,row,col):
         return self.check_vertical(mark,row,col) or self.check_horizontal(mark,row,col) or self.check_diagonal_first(mark,row,col) or self.check_diagonal_second(mark,row,col)
 
-    def check_vertical(self,mark,row,col):
+    def check_alignement(self,mark,row,col,r,c):
         count = 0
-        for i in range(1,4):
-            if (row-i > -1 and self.grid[row-i][col] == mark):
-                count += 1
-            if (row+i < 6 and self.grid[row+i][col] == mark):
-                count += 1
-        if count == 3:
-            return True
-        else:
-            return False
+        r_index = r
+        c_index = c
+        while row-r_index > -1 and col-c_index > -1 and self.grid[row-r_index][col-c_index] == mark:
+            count += 1
+            r_index += (1 if r_index != 0 else 0)
+            c_index += (1 if c_index != 0 else 0)
+
+        r_index = r
+        c_index = c
+        while row+r_index < 6 and col+c_index < 7 and self.grid[row+r_index][col+c_index] == mark:
+            count += 1
+            r_index += (1 if r_index != 0 else 0)
+            c_index += (1 if c_index != 0 else 0)
+        return count == 3
+
+    def check_vertical(self,mark,row,col):
+        return self.check_alignement(mark,row,col,1,0)
 
     def check_horizontal(self,mark,row,col):
-        count = 0
-        i = 1
-        while col-i > -1 and self.grid[row][col-i] == mark:
-            count += 1
-            i += 1
-        i = 1
-        while col+i < 7 and self.grid[row][col+i] == mark:
-            count += 1
-            i += 1
-
-        if count == 3:
-            return True
-        else:
-            return False
+        return self.check_alignement(mark,row,col,0,1)
 
     def check_diagonal_first(self,mark,row,col):
         count = 0
@@ -56,24 +51,7 @@ class Game():
         while col+i < 7 and row-i > -1 and self.grid[row-i][col+i] == mark:
             count += 1
             i += 1
-
-        if count == 3:
-            return True
-        else:
-            return False
+        return count == 3
 
     def check_diagonal_second(self,mark,row,col):
-        count = 0
-        i = 1
-        while col-i > -1 and row-i > -1 and self.grid[row-i][col-i] == mark:
-                count += 1
-                i += 1
-        i = 1
-        while col+i < 7 and row+i < 6 and self.grid[row+i][col+i] == mark:
-                count += 1
-                i += 1
-
-        if count == 3:
-            return True
-        else:
-            return False
+        return self.check_alignement(mark,row,col,1,1)
