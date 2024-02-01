@@ -24,15 +24,15 @@ class Game():
         c_index = c
         while row-r_index > -1 and col-c_index > -1 and row-r_index < 6 and self.grid[row-r_index][col-c_index] == mark:
             count += 1
-            r_index += (1 if r_index > 0 else -1 if r_index < 0 else 0)
-            c_index += (1 if c_index > 0 else -1 if c_index < 0 else 0)
+            r_index += r
+            c_index += c
 
         r_index = r
         c_index = c
         while row+r_index < 6 and col+c_index < 7 and row+r_index > -1 and self.grid[row+r_index][col+c_index] == mark:
             count += 1
-            r_index += (1 if r_index > 0 else -1 if r_index < 0 else 0)
-            c_index += (1 if c_index > 0 else -1 if c_index < 0 else 0)
+            r_index += r
+            c_index += c
         return count == 3
 
     def check_vertical(self,mark,row,col):
