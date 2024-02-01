@@ -1,6 +1,8 @@
 class Game():
     def __init__(self):
-        self.grid = [[' ' for i in range(7)] for j in range(6)]
+        self.width = 7
+        self.height = 6
+        self.grid = [[' ' for i in range(self.width)] for j in range(self.height)]
 
     def __str__(self):
         # grid_str = '\n'.join(''.join(row) for row in self.grid)
@@ -20,19 +22,13 @@ class Game():
 
     def check_alignement(self,mark,row,col,r,c):
         count = 0
-        r_index = r
-        c_index = c
-        while row-r_index > -1 and col-c_index > -1 and row-r_index < 6 and self.grid[row-r_index][col-c_index] == mark:
-            count += 1
-            r_index += r
-            c_index += c
-
-        r_index = r
-        c_index = c
-        while row+r_index < 6 and col+c_index < 7 and row+r_index > -1 and self.grid[row+r_index][col+c_index] == mark:
-            count += 1
-            r_index += r
-            c_index += c
+        for r,c in [(r, c), (-r, -c)]:
+            r_index = r
+            c_index = c
+            while 0 <= row-r_index < self.height and 0 <= col-c_index < self.width and self.grid[row-r_index][col-c_index] == mark:
+                count += 1
+                r_index += r
+                c_index += c
         return count == 3
 
     def check_vertical(self,mark,row,col):
